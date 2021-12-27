@@ -6,7 +6,7 @@ from player import Player
 from score import ScoreBoard
 
 HEIGHT = 600
-WIDTH = 800
+WIDTH = 600
 
 screen = Screen()
 screen.setup(WIDTH, HEIGHT)
@@ -16,8 +16,8 @@ screen.tracer(0)
 
 puck = Puck(WIDTH, HEIGHT)
 
-PLAYER1X = 350
-PLAYER2X = -350
+PLAYER1X = 250
+PLAYER2X = -250
 
 player1 = Player(PLAYER1X, width=WIDTH, height=HEIGHT)
 player2 = Player(PLAYER2X, width=WIDTH, height=HEIGHT)
@@ -38,16 +38,14 @@ while True:
     
 
     if puck.xcor() > PLAYER1X - 2 and puck.distance(player1) < 50:
-        head = puck.heading()
-        print(head)
-        puck.bounce()
-        puck.goto(puck.xcor()-20, puck.ycor())
-        puck.move()
+        puck.bouncePlayer()
+
+    if puck.xcor() < PLAYER2X + 2 and puck.distance(player2) < 50:
+        puck.bouncePlayer()
 
     screen.update()
     
     time.sleep(0.1)
-
 
 
 screen.exitonclick()
