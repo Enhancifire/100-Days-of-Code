@@ -1,82 +1,127 @@
-from tkinter import *
-import random
 import os
+from tkinter import *
+import time
+import math
 
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-def gen_password():
-    nr_letters = 4
-    nr_symbols = 4
-    nr_numbers = 4
-    total_length = nr_numbers+nr_letters+nr_symbols
-    hard_password = []
-    for i in range(0, nr_letters):
-        hard_password.append(random.choice(letters))
+# ---------------------------- CONSTANTS ------------------------------- #
+PINK = "#e2979c"
+RED = "#e7305b"
+GREEN = "#9bdeac"
+YELLOW = "#f7f5dd"
+FONT_NAME = "Courier"
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
+TICK = "✓"
+reps = 0
+tickm = TICK
+my_timer = NONE
 
-    for i in range(0, nr_symbols):
-        hard_password.append(random.choice(symbols))
-
-    for i in range(0, nr_numbers):
-        hard_password.append(random.choice(numbers))
-
-    hardpass = ""
-    random.shuffle(hard_password)
-    for i in hard_password:
-        hardpass += i
-    pasw = password_entry.get()
-    password_entry.delete(0, END)
-    password_entry.insert(0, hardpass)
-# ---------------------------- SAVE PASSWORD ------------------------------- #
-def save_password():
-    with open(os.path.join("Day 27", "password.txt"), "a") as f:
-        f.write(f"{website_entry.get()} | {email_entry.get()} | {password_entry.get()}"+"\n")
-    f.close()
+# ---------------------------- TIMER RESET ------------------------------- # 
+def reset():
+    window.after_cancel(my_timer)
+    global reps, tickm
+    reps = 0
+    tickm = TICK
+    TIMER.config(text="TIMER", fg=GREEN)
+    tickmark.config(text=tickm)
+    canvas.itemconfig(timer_text, text="00:00")
     
+
+# ---------------------------- TIMER MECHANISM ------------------------------- # 
+def start():
+
+    global reps
+    reps += 1
+    work_sec = WORK_MIN * 60
+    short_break_sec = SHORT_BREAK_MIN * 60
+    long_break_sec = LONG_BREAK_MIN * 60
+    
+
+    if reps % 8 == 0:
+        countdown(long_break_sec)
+        TIMER.config(text="LONG BREAK", fg=PINK)
+    elif reps % 2 == 0:
+        countdown(short_break_sec)
+        TIMER.config(text="SHORT BREAK", fg=RED)
+        
+    else:
+        countdown(work_sec)
+        if reps % 2 == 1 and reps != 1:
+            global tickm
+            tickm += TICK
+            tickmark.config(text=tickm)
+            TIMER.config(text="TIMER")
+
+
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+def countdown(count):
+
+    count_min = math.floor(count / 60)
+    count_sec = count % 60
+    
+    if count_sec == 0:
+        sec = "00"
+
+    elif count_sec > 0 and count_sec < 10:
+        sec = f"0{count_sec}"
+    
+    else:
+        sec = count_sec
+
+    if count_min == 0:
+        min = "00"
+    
+    elif count_min > 0 and count_min < 10:
+        min = f"0{count_min}"
+
+    else:
+        min = count_min
+
+    rem_time = f"{min}:{sec}"
+
+    canvas.itemconfig(timer_text, text=rem_time)
+    if count > 0:
+        global my_timer
+        my_timer = window.after(1000, countdown, count - 1)
+        
+    else:
+        start()
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
-# Window Setup
 window = Tk()
-window.title("Password Manager")
-window.config(padx=20, pady=20)
+window.title("Pomodoro Timer")
+window.config(padx=100, pady=50, bg=YELLOW)
 
 
-# Logo
-canvas = Canvas(width=200, height=200, highlightthickness=0)
-img = PhotoImage(file=os.path.join("Day 27","logo.png"))
-logo = canvas.create_image(100, 100, image=img)
-canvas.grid(column=1, row=0)
+# Timer Title
+TIMER = Label(text="TIMER", font=(FONT_NAME, 50, "bold"), bg=YELLOW, fg=GREEN)
+TIMER.grid(column=1, row=0)
 
-# Text setup
-website = Label(text="Website:")
-website.grid(column=0, row=1)
 
-emuser = Label(text="Email/Username:")
-emuser.grid(column=0, row=2)
+# Start Button
+start_but = Button(text="Start", command=start)
+start_but.grid(column=0, row=2)
 
-passw = Label(text="Password:")
-passw.grid(column=0, row=3)
+reset_but = Button(text="Reset", command=reset)
+reset_but.grid(column=2, row=2)
 
-# Buttons Setup
-genpass = Button(text="Generate Password", command=gen_password)
-genpass.grid(column=2, row=3)
+# Tick Section
 
-add = Button(text="Add", width=36, command=save_password)
-add.grid(column=1, row=4, columnspan=2)
+tickmark = Label(text=tickm, font=(FONT_NAME, 20, "bold"), bg=YELLOW, fg=GREEN)
+tickmark.grid(column=1, row=3)
 
-# Entry Boxes
-website_entry = Entry(width=50)
-website_entry.focus()
-website_entry.grid(row=1, column = 1, columnspan=2)
+# Canvas Section
+canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
+img = PhotoImage(file=os.path.join("Day 26","tomato.png"))
+tomato_img = canvas.create_image(100, 112, image=img)
+timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 20, "bold"))
 
-email_entry = Entry(width=50)
-email_entry.insert(0, "fsaiyad990@gmail.com")
-email_entry.grid(row=2, column=1, columnspan=2)
 
-password_entry = Entry(width=30)
-password_entry.grid(row=3, column=1)
+canvas.grid(column=1, row=1)
 
-# Window Mainloop
+
 window.mainloop()
