@@ -1,0 +1,36 @@
+* {
+  margin: 20;
+  align-items: center;
+}
+
+body {
+  background-color: #1e1e28;
+}
+h1 {
+  color: red;
+  text-align: center;
+  text-decoration: underline white;
+  text-decoration-style: wavy;
+  font-weight: 700;
+}
+
+h2 {
+  color: #4ce0b3;
+}
+
+h3 {
+  color: #ff206e;
+}
+
+table {
+  align-content: center;
+  margin: 20;
+}
+
+td {
+  text-align: center;
+  margin: 20;
+  padding: 30;
+  color: white;
+  border: 1px solid gold;
+}

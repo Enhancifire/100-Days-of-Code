@@ -1,0 +1,15 @@
+import smtplib
+
+email = "reaperfs144@gmail.com"
+password = "7Pz4j56bGYWhsu"
+msg = ""
+
+    with smtplib.SMTP("smtp.gmail.com") as connection:
+        connection.starttls()
+        connection.login(user=email, password=password)
+        connection.sendmail(
+            from_addr=email,
+            to_addrs="fsaiyad990@gmail.com",
+            msg=msg
+            )
+

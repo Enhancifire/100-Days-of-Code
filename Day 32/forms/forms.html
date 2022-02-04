@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms Testing</title>
+  </head>
+  <body>
+    <h1>Forms Demo</h1>
+    <form action="https://reddit.com/search/">
+      <p>
+        <label for="username">Enter a username</label>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          id="username"
+        />
+      </p>
+      <p>
+        <label for="password">Enter a password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          id="password"
+        />
+      </p>
+      <p>
+        <label for="color">Pick a color</label>
+        <input type="color" id="color" />
+      </p>
+      <p>
+        <label for="date">Pick a date</label>
+        <input type="datetime-local" id="date" />
+      </p>
+      <p>
+        <label for="num">Enter a number</label>
+        <input type="number" id="num" />
+      </p>
+      <button type="button">Don't Submit!</button>
+      <button>Submit</button>
+
+      <input type="submit" value="Input submit" />
+    </form>
+    <h2>Google Search</h2>
+    <form action="https://www.google.com/search">
+      <label for="search">Enter search term:</label>
+      <input id="search" type="text" placeholder="search entry" name="q" />
+      <p>
+        <button>Submit</button>
+      </p>
+    </form>
+    <h2>More Inputs</h2>
+    <form action="/birds">
+      <label for="agree">Agree</label>
+      <input type="checkbox" name="agree" id="agree" />
+
+      <p>
+        <label for="xs">XS:</label>
+        <input type="radio" name="size" id="xs" value="xtrasmall" />
+      </p>
+      <p>
+        <label for="md">M:</label>
+        <input type="radio" name="size" id="md" value="medium" />
+      </p>
+      <p>
+
+        <label for="lg">L:</label>
+        <input type="radio" name="size" id="lg" value="xtrathicc" />
+      </p>
+      <p>
+        <label for="meal">Please select a meal type</label>
+        <select name="meal" id="meal">
+          <option value="">---Please choose an option---</option>
+          <option value="fish">Fish</option>
+          <option value="veg">Vegeterian</option>
+          <option value="chicken">Chicken</option>
+        </select>
+      </p>
+      <p>
+        <label for="volume">Volume</label>
+        <input
+          type="range"
+          id="volume"
+          min="0"
+          step="5"
+          max="100"
+          name="volume"
+          value="50"
+        />
+      </p>
+      <p>
+        <label for="request">Any special requests?</label><br />
+        <textarea name="request" id="request" cols="30" rows="10"></textarea>
+      </p>
+      <button>Submit!</button>
+    </form>
+  </body>
+</html>
