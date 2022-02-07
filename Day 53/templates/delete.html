@@ -1,0 +1,10 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<h1>Are you sure you want to delete this book?</h1>
+<p>Book Name: {{book.title}}</p>
+<p>Rating: {{book.rating}}</p>
+<p>Author: {{book.author}}</p>
+{{wtf.quick_form(form)}}
+{% endblock %}

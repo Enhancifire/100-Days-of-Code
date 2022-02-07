@@ -1,0 +1,38 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<h1 class="">My Library</h1>
+{% if len == 0 %}
+  <p>Library is empty</p>
+{% else %}
+<table class="table">
+  <tr>
+    <th>#</th>
+    <th>
+      Title
+    </th>
+    <th>
+      Author
+    </th>
+    <th>
+      Rating
+    </th>
+    <td></td>
+    <td></td>
+  </tr>
+  {% for book in books %}
+  <tr>
+    <th>{{book.id}}</th>
+    <td>{{book.title}}</td>
+    <td>{{book.author}}</td>
+    <td>{{book.rating}}</td>
+    <td><a href="{{url_for('edit', id=book.id)}}" class="">Edit Rating</a></td>
+    <td><a href="{{url_for('delete', id=book.id)}}" class="">Delete Book</a></td>
+
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+<a href="{{url_for('add')}}" class="btn btn-primary btn-large">Add new book</a>
+
+{% endblock %}

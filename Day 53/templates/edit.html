@@ -1,0 +1,7 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<h1>Book Name: {{book.title}}</h1>
+<p>Current Rating: {{book.rating}}</p>
+{{wtf.quick_form(form)}}
+{% endblock %}
