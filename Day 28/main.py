@@ -34,7 +34,7 @@ def save_password():
     with open(os.path.join("Day 27", "password.txt"), "a") as f:
         f.write(f"{website_entry.get()} | {email_entry.get()} | {password_entry.get()}"+"\n")
     f.close()
-    
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 # Window Setup
