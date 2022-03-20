@@ -18,7 +18,7 @@ reps = 0
 tickm = TICK
 my_timer = NONE
 
-# ---------------------------- TIMER RESET ------------------------------- # 
+# ---------------------------- TIMER RESET ------------------------------- #
 def reset():
     window.after_cancel(my_timer)
     global reps, tickm
@@ -27,9 +27,9 @@ def reset():
     TIMER.config(text="TIMER", fg=GREEN)
     tickmark.config(text=tickm)
     canvas.itemconfig(timer_text, text="00:00")
-    
 
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
+
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 def start():
 
     global reps
@@ -37,7 +37,7 @@ def start():
     work_sec = WORK_MIN * 60
     short_break_sec = SHORT_BREAK_MIN * 60
     long_break_sec = LONG_BREAK_MIN * 60
-    
+
 
     if reps % 8 == 0:
         countdown(long_break_sec)
@@ -45,7 +45,7 @@ def start():
     elif reps % 2 == 0:
         countdown(short_break_sec)
         TIMER.config(text="SHORT BREAK", fg=RED)
-        
+
     else:
         countdown(work_sec)
         if reps % 2 == 1 and reps != 1:
@@ -55,24 +55,24 @@ def start():
             TIMER.config(text="TIMER")
 
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def countdown(count):
 
     count_min = math.floor(count / 60)
     count_sec = count % 60
-    
+
     if count_sec == 0:
         sec = "00"
 
     elif count_sec > 0 and count_sec < 10:
         sec = f"0{count_sec}"
-    
+
     else:
         sec = count_sec
 
     if count_min == 0:
         min = "00"
-    
+
     elif count_min > 0 and count_min < 10:
         min = f"0{count_min}"
 
@@ -85,9 +85,15 @@ def countdown(count):
     if count > 0:
         global my_timer
         my_timer = window.after(1000, countdown, count - 1)
-        
+
     else:
         start()
+cases = int(input())
+
+caseList = [int(input()) for _ in range(0, cases)]
+caseList = [((case - 6) // 7) + 1 for case in caseList]
+for case in caseList:
+    print(case)
 
 
 # ---------------------------- UI SETUP ------------------------------- #

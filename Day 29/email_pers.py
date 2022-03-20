@@ -2,7 +2,7 @@ import smtplib
 import random
 
 EMAIL = "reaperfs144@gmail.com"
-PSSWORD = "7Pz4j56bGYWhsu"
+PSSWORD = "E29*kU$XPFh57KdQRQL#^$"
 
 try:
     file = open("quotes.txt", "r")

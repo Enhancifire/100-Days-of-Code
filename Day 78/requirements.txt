@@ -1,0 +1,4 @@
+pytesseract
+pynvim
+opencv-python
+pdf2image
